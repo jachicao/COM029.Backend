@@ -18,8 +18,12 @@ module.exports = function () {
   const host = getValue(dbProperties, "Data Source");
   const username = getValue(dbProperties, "User Id");
   const password = getValue(dbProperties, "Password");
-  const connectionString = `mysql://${username}:${password}@${host}/${db}`;
-  const sequelize = new Sequelize(connectionString, {
+  const splitHost = host.split(":");
+  const ip = splitHost[0];
+  const port = Number(splitHost[1]);
+  const sequelize = new Sequelize(db, username, password, {
+    host: ip,
+    port: port,
     dialect: 'mysql',
     logging: false,
     define: {
