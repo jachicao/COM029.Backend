@@ -6,5 +6,10 @@
     "default": 10,
     "max": 50
   },
-  "mysql": "mysql://root:@localhost:3306/app"
+  "db.name": "com029",
+  "db.username": "jachicao",
+  "db.password": "",
+  "dh.host": "localhost",
+  "db.port": 5432,
+  "db.type": "postgres"
 }

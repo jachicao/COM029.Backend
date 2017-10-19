@@ -1,30 +1,11 @@
 const Sequelize = require('sequelize');
 
-function getValue(str, key) {
-  const split = str.split(";");
-  for (var i = 0; i < split.length; i++) {
-    const s = split[i];
-    if (s.indexOf(key) > -1) {
-      return s.replace(key + "=", "");
-    }
-  }
-  return "";
-}
-
 module.exports = function () {
   const app = this;
-  const dbProperties = process.env.MYSQLCONNSTR_localdb;
-  const db = getValue(dbProperties, "Database");
-  const host = getValue(dbProperties, "Data Source");
-  const username = getValue(dbProperties, "User Id");
-  const password = getValue(dbProperties, "Password");
-  const splitHost = host.split(":");
-  const ip = splitHost[0];
-  const port = Number(splitHost[1]);
-  const sequelize = new Sequelize(db, username, password, {
-    host: ip,
-    port: port,
-    dialect: 'mysql',
+  const sequelize = new Sequelize(app.get('db.name'), app.get('db.username'), app.get('db.password'), {
+    host: app.get('db.host'),
+    port: app.get('db.port'),
+    dialect: app.get('db.type'),
     logging: false,
     define: {
       freezeTableName: true
