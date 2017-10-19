@@ -25,7 +25,7 @@ const app = feathers();
 // Load app configuration
 app.configure(configuration());
 
-if (app.get('env') === 'production') {
+if (process.env.MYSQLCONNSTR_localdb != null) {
   const getValue = (str, key) => {
     const split = str.split(';');
     for (var i = 0; i < split.length; i++) {
